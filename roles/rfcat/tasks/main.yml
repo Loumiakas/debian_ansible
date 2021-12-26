@@ -1,0 +1,37 @@
+---
+- name: clone rfcat repository
+  git: 
+    repo: https://github.com/atlas0fd00m/rfcat.git
+    dest: /opt/rfcat
+    version: master
+
+- name: install dependencies
+  shell: |
+    pip install -r /opt/rfcat/requirements.txt
+    pip install "jedi<0.18.0"
+    if [ ! -f /usr/local/bin/rfcat ]; then
+      ln -s /opt/rfcat/rfcat /usr/local/bin/rfcat
+    fi
+
+- name: download and extract sdcc
+  unarchive:
+    src: https://sourceforge.net/projects/sdcc/files/sdcc/3.5.0/sdcc-src-3.5.0.tar.bz2
+    dest: /opt
+    remote_src: yes
+
+- name: compile and install sdcc
+  shell: |
+    cd /opt/sdcc-3.5.0
+    ./configure
+    make && make install
+
+- name: enable usb access without elevated privileges
+  lineinfile:
+    create: yes
+    group: root
+    line: 'SUBSYSTEM=="usb",MODE="0666"'
+    mode: '0644'
+    owner: root
+    path: /etc/udev/rules.d/usb.rules
+    regexp: 'SUBSYSTEM=="usb",MODE="0666"'
+...

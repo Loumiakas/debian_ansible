@@ -1,0 +1,57 @@
+---
+- name: create nrf sniffer directory
+  file:
+    path: /opt/nrf
+    state: directory
+    mode: '0655'
+    owner: root
+    group: root
+
+- name: create nrf sniffer installer directory
+  file:
+    path: /opt/nrf-deb
+    state: directory
+    mode: '0655'
+    owner: root
+    group: root
+
+- name: download and extract nrf.zip into /opt/nrf
+  unarchive:
+    src: "{{ nrf_sniffer_link }}"
+    dest: /opt/nrf
+    remote_src: yes
+
+- name: download and extract nrf.zip into /opt/nrf-deb
+  unarchive:
+    src: "{{ nrf_cmd_line_tools_link }}"
+    dest: /opt/nrf-deb
+    remote_src: yes
+
+- name: install nrf-command-line-tools
+  apt: deb="/opt/nrf-deb/{{ nrf_cmd_line_tools_deb }}"
+
+- name: install JLink
+  apt: deb="/opt/nrf-deb/{{ nrf_jlink_deb }}"
+
+- name: copy wireshark configuration files
+  shell: |
+    if [ ! -d /usr/lib/x86_64-linux-gnu/wireshark/extcap/SnifferAPI ]; then
+      cp -r /opt/nrf/extcap/*  /usr/lib/x86_64-linux-gnu/wireshark/extcap
+    fi
+    if [ ! -d  /usr/share/wireshark/profiles/Profile_nRF_Sniffer_Bluetooth_LE ]; then
+      cp -r /opt/nrf/Profile_nRF_Sniffer_Bluetooth_LE  /usr/share/wireshark/profiles
+    fi
+
+- name: enable tty access without elevated privileges
+  lineinfile:
+    create: yes
+    group: root
+    line: 'SUBSYSTEM=="tty",MODE="0666"'
+    mode: '0644'
+    owner: root
+    path: /etc/udev/rules.d/usb.rules
+    regexp: 'SUBSYSTEM=="tty",MODE="0666"'
+...
+
+
+

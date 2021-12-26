@@ -1,0 +1,10 @@
+---
+- hosts: all
+  roles:
+    - setup
+    - nrfsniffer
+    - rfcat
+  vars:
+    username: <username>
+    password: <password>
+  # user_email: <user_email>
