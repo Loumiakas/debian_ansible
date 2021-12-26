@@ -5,15 +5,21 @@
     dest: /opt/rfcat
     version: master
 
-- name: install dependencies
-  shell: |
-    pip install -r /opt/rfcat/requirements.txt
-    pip install "jedi<0.18.0"
-    if [ ! -f /usr/local/bin/rfcat ]; then
-      ln -s /opt/rfcat/rfcat /usr/local/bin/rfcat
-    fi
+- name: install jedi
+  pip:
+    name: jedi<0.18.0
 
-- name: download and extract sdcc
+- name: install packages from the requirements.txt
+  pip:
+    requirements: /opt/rfcat/requirements.txt
+
+- name: symbolically link rfcat
+  file:
+    src: /opt/rfcat/rfcat 
+    dest: /usr/local/bin/rfcat
+    state: link
+
+- name: download and extract sdcc 3.5.0
   unarchive:
     src: https://sourceforge.net/projects/sdcc/files/sdcc/3.5.0/sdcc-src-3.5.0.tar.bz2
     dest: /opt
