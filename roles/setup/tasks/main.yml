@@ -43,13 +43,13 @@
         - netdev
         - dialout
     expires: -1
-    
+
 - name: enable X11 tunnelling
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^#X11DisplayOffset 10'
     line: X11DisplayOffset 10
-    
+
 - name: enable X11 tunnelling
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -104,7 +104,7 @@
 
 - name: update pip
   shell: pip3 install --upgrade pip
-    
+
 - name: download and extract bat
   unarchive:
     src: "https://github.com/sharkdp/bat/releases/download/{{ bat_version }}/bat-{{ bat_version }}-x86_64-unknown-linux-musl.tar.gz"
@@ -113,12 +113,15 @@
 
 - name: copy bat into /usr/local/bin
   shell: |
-        cp /tmp/bat-{{ bat_version }}-x86_64-unknown-linux-musl/bat /usr/local/bin/bat
+    cp /tmp/bat-{{ bat_version }}-x86_64-unknown-linux-musl/bat /usr/local/bin/bat
 
 - name: remove old dotfiles
-  shell: |
-    rm -f ~/.zshrc
-    rm -f ~/.vimrc
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/home/{{ username }}/.zshrc"
+    - "/home/{{ username }}/.vimrc"
 
 - name: clone dotfiles
   git:
@@ -126,9 +129,11 @@
     dest: "/home/{{ username }}/.dotfiles"
     clone: yes
     update: yes
+  become: yes
   become_user: "{{ username }}"
 
 - name: install dotfiles
   shell: "/home/{{ username }}/.dotfiles/setup.sh"
+  become: yes
   become_user: "{{ username }}"
 ...
