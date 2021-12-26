@@ -114,9 +114,8 @@
 
 - name: install pip packages
   pip:
-    name: "{{ item }}"
+    name: "{{ pip_packages }}"
     executable: pip3
-  with_items: "{{ pip_packages }}"
 
 - name: remove old dotfiles
   file:
