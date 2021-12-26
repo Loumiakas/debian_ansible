@@ -1,8 +1,5 @@
 ---
-bat_version: v0.18.3
-tmux_version: 3.2a
-  
-packages:
+apt_packages:
   - acl
   - arduino
   - avahi-daemon
@@ -41,3 +38,10 @@ packages:
   - xorg-dev
   - xterm
   - zsh
+
+bat_version: v0.18.3
+
+pip_packages:
+  - tmuxp
+
+tmux_version: 3.2a

@@ -102,9 +102,6 @@
     make
     make install
 
-- name: update pip
-  shell: pip3 install --upgrade pip
-
 - name: download and extract bat
   unarchive:
     src: "https://github.com/sharkdp/bat/releases/download/{{ bat_version }}/bat-{{ bat_version }}-x86_64-unknown-linux-musl.tar.gz"
@@ -114,6 +111,12 @@
 - name: copy bat into /usr/local/bin
   shell: |
     cp /tmp/bat-{{ bat_version }}-x86_64-unknown-linux-musl/bat /usr/local/bin/bat
+
+- name: install pip packages
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+  with_items: "{{ pip_packages }}"
 
 - name: remove old dotfiles
   file:
