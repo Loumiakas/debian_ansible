@@ -17,6 +17,7 @@ Currently, notable tasks are:
 
 Symbolically link the directory, so it can be accessed from the guest VM:
 ```ruby
+config.vm.synced_folder ".", "/vagrant"
 config.vm.synced_folder "<PATH_TO_THIS_REPOSITORY>", "/vm_setup"
 ```
 
