@@ -3,6 +3,7 @@ bat_version: v0.18.3
 tmux_version: 3.2a
   
 packages:
+  - acl
   - arduino
   - avahi-daemon
   - bison
