@@ -7,7 +7,7 @@
   apt: 
     name: "{{ item }}"
     state: present 
-  loop: "{{ packages }}"
+  loop: "{{ apt_packages }}"
   ignore_errors: yes
 
 - name: install vim dependencies
