@@ -5,11 +5,11 @@ environment for the Debian systems.
 
 Currently, notable tasks are:
 * Developer user account creation 
-* Arduino developement environment
-* Latest vim compilation/install from source
-* Latest tmux compilation/install from source
-* SDCC 3.5.0 compilation/install from source
-* NRF BLE (Bluetooth Low Energy) sniffer command line utilities
+* Arduino development environment creation
+* Latest vim compilation/installation from source
+* Latest tmux compilation/installation from source
+* SDCC 3.5.0 compilation/installation from source
+* NRF BLE (Bluetooth Low Energy) sniffer command line utilities installation
 * RFCat installation
 * Dotfiles
 
