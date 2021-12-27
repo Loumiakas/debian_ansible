@@ -108,20 +108,72 @@ Optional settings:
                   "--productid", "0x374b",
                   "--product", "STM32 STLink",
                   "--manufacturer", "STMicroelectronics"]
-    # Teensy
+    # USB Bluetooth dongle
     vb.customize ["usbfilter", "add", "9",
+                  "--target", :id,
+                  "--name", "Bluetooth Dongle",
+                  "--vendorid", "0x0a12",
+                  "--productid", "0x0001",
+                  "--manufacturer", "Cambridge Silicon Radio, Ltd"]
+    # Rasberry Pi Pico (Normal Mode)
+    vb.customize ["usbfilter", "add", "10",
+                  "--target", :id,
+                  "--name", "Arduino RaspberryPi Pico [0101]",
+                  "--vendorid", "0x2e8a",
+                  "--productid", "0x00c0",
+                  "--manufacturer", "Arduino"]
+    # Rasberry Pi Pico (Bootloader Mode)
+    vb.customize ["usbfilter", "add", "11",
+                  "--target", :id,
+                  "--name", "Raspberry Pi RP2 Boot [0100]",
+                  "--vendorid", "0x2e8a",
+                  "--productid", "0x0003",
+                  "--manufacturer", "Raspberry Pi"]
+    # Teensy (Normal Mode)
+    vb.customize ["usbfilter", "add", "11",
                   "--target", :id,
                   "--name", "Teensy",
                   "--vendorid", "0x16c0",
                   "--productid", "0x0486",
                   "--product", "Teensyduino RawHID",
                   "--manufacturer", "Teensyduino"]
-    # USB Bluetooth dongle
-    vb.customize ["usbfilter", "add", "10",
+    # Teensy (Bootloader Mode)
+    vb.customize ["usbfilter", "add", "12",
                   "--target", :id,
-                  "--name", "Bluetooth Dongle",
-                  "--vendorid", "0x0a12",
-                  "--productid", "0x0001",
-                  "--manufacturer", "Cambridge Silicon Radio, Ltd"]
+                  "--name", "Teensy Bootloader",
+                  "--vendorid", "0x16c0",
+                  "--productid", "0x0478"]
+    # ESP32 (Normal Mode)
+    vb.customize ["usbfilter", "add", "13",
+                  "--target", :id,
+                  "--name", "ESP32",
+                  "--vendorid", "0x10c4",
+                  "--productid", "0xea60",
+                  "--product", "CP2102 USB to UART Bridge Controller",
+                  "--manufacturer", "Silicon Labs"]
+    # STM32 STLink
+    vb.customize ["usbfilter", "add", "14",
+                  "--target", :id,
+                  "--name", "STLink",
+                  "--vendorid", "0x0483",
+                  "--productid", "0x3748",
+                  "--product", "STM32 STLink",
+                  "--manufacturer", "STMicroelectronics"]
+    # STM32 Blackpill
+    vb.customize ["usbfilter", "add", "15",
+                  "--target", :id,
+                  "--name", "STM32 Blackpill",
+                  "--vendorid", "0x0483",
+                  "--productid", "0xdf11",
+                  "--product", "STM32  BOOTLOADER",
+                  "--manufacturer", "STMicroelectronics"]
+    # Bus Pirate v4
+    vb.customize ["usbfilter", "add", "16",
+                  "--target", :id,
+                  "--name", "Bus Pirate v4",
+                  "--vendorid", "0x04d8",
+                  "--productid", "0xfb00",
+                  "--product", "Bus Pirate V4",
+                  "--manufacturer", "Dangerous Prototypes"]
   end
 ```
