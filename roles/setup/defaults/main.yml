@@ -42,6 +42,7 @@ apt_packages:
 bat_version: v0.18.3
 
 pip_packages:
+  - psutil
   - tmuxp
 
 tmux_version: 3.2a
