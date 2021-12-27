@@ -5,6 +5,12 @@
     dest: /opt/rfcat
     version: master
 
+- name: modify rfcat script to use Python3 interpreter
+  lineinfile:
+    path: /opt/rfcat/rfcat
+    regexp: '#!/usr/bin/env'
+    line: '#!/usr/bin/env python3'
+
 - name: install jedi
   pip:
     name: jedi<0.18.0
