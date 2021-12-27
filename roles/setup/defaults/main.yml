@@ -29,7 +29,7 @@ apt_packages:
   - unzip
   - usbutils
   - vim
-  - wireshark=3.6.0-1
+  - wireshark
   - x11-apps
   - x11-common
   - x11-utils
