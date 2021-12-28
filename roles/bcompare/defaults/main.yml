@@ -1,0 +1,3 @@
+bcompare_base_url: https://www.scootersoftware.com
+bcompare_download_url: "{{ bcompare_base_url }}/download.php"
+bcompare_temp_file: /tmp/bcompare.php

@@ -1,0 +1,26 @@
+---
+
+- name: update apt cache
+  apt: 
+    update_cache: yes
+
+- name: fetch bcompare download page source code
+  get_url: 
+    url: "{{ bcompare_download_url }}"
+    force: yes
+    dest: "{{ bcompare_temp_file }}"
+
+- name: extract application version number
+  shell: grep 'Current Version:.*' {{ bcompare_temp_file }} | sed 's/\,/\./g' | awk -F' ' '{print substr($3$5, 1, length($3$5)-1)}'
+  register: bcompare_version_number
+
+- name: download bcompare debian package
+  get_url: 
+    url: "{{ bcompare_base_url }}/bcompare-{{ bcompare_version_number.stdout }}_amd64.deb"
+    dest: /tmp
+
+- name: install bcompare
+  apt: "deb=/tmp/bcompare-{{ bcompare_version_number.stdout }}_amd64.deb"
+  become: true
+
+...
