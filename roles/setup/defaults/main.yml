@@ -5,6 +5,7 @@ apt_packages:
   - avahi-daemon
   - bison
   - bluez
+  - cgdb
   - cscope
   - esptool
   - flex
