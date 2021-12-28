@@ -1,4 +1,5 @@
 ---
+
 - name: clone rfcat repository
   git: 
     repo: https://github.com/atlas0fd00m/rfcat.git
@@ -46,4 +47,5 @@
     owner: root
     path: /etc/udev/rules.d/usb.rules
     regexp: 'SUBSYSTEM=="usb",MODE="0666"'
+
 ...

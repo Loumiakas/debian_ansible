@@ -1,4 +1,5 @@
 ---
+
 - name: create nrf sniffer directory
   file:
     path: /opt/nrf
@@ -51,6 +52,7 @@
     owner: root
     path: /etc/udev/rules.d/usb.rules
     regexp: 'SUBSYSTEM=="tty",MODE="0666"'
+
 ...
 
 
