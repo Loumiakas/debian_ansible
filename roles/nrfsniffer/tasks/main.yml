@@ -1,5 +1,16 @@
 ---
 
+- name: update apt cache
+  apt: 
+    update_cache: yes
+  
+- name: install apt packages
+  apt: 
+    name: "{{ item }}"
+    state: present 
+  loop: "{{ apt_packages }}"
+  ignore_errors: yes
+
 - name: create nrf sniffer directory
   file:
     path: /opt/nrf
@@ -54,6 +65,3 @@
     regexp: 'SUBSYSTEM=="tty",MODE="0666"'
 
 ...
-
-
-

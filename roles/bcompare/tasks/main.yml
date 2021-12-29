@@ -4,6 +4,13 @@
   apt: 
     update_cache: yes
 
+- name: install apt packages
+  apt: 
+    name: "{{ item }}"
+    state: present 
+  loop: "{{ apt_packages }}"
+  ignore_errors: yes
+
 - name: fetch bcompare download page source code
   get_url: 
     url: "{{ bcompare_download_url }}"
@@ -21,6 +28,5 @@
 
 - name: install bcompare
   apt: "deb=/tmp/bcompare-{{ bcompare_version_number.stdout }}_amd64.deb"
-  become: true
 
 ...

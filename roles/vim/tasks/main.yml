@@ -1,0 +1,68 @@
+---
+
+- name: update apt cache
+  apt: 
+    update_cache: yes
+  
+- name: install apt packages
+  apt: 
+    name: "{{ item }}"
+    state: present 
+  loop: "{{ apt_packages }}"
+  ignore_errors: yes
+
+- name: enable X11 tunnelling
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#X11DisplayOffset 10'
+    line: X11DisplayOffset 10
+
+- name: enable X11 tunnelling
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#X11UseLocalhost yes'
+    line: X11UseLocalhost no
+
+- name: enable X11 tunnelling
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: 'PasswordAuthentication no'
+    line: PasswordAuthentication yes
+
+- name: clone Vim repository
+  git:
+    repo: 'https://github.com/vim/vim.git'
+    dest: /tmp/vim
+    clone: yes
+    update: yes
+
+- name: compile and install Vim
+  shell: |
+    cd /tmp/vim
+    make clean
+    ./configure \
+    --enable-perlinterp=dynamic \
+    --enable-python3interp=dynamic \
+    --enable-rubyinterp=dynamic \
+    --enable-cscope \
+    --enable-gui=auto \
+    --enable-gtk2-check \
+    --enable-gnome-check \
+    --with-features=huge \
+    --with-x \
+    --with-compiledby="{{ username }} <{{ user_email | default('') }}>" \
+                                                        --with-python3-config-dir=$(python3-config --configdir)
+                                                        make -j8
+                                                        make install
+
+- name: download and extract bat
+  unarchive:
+    src: "https://github.com/sharkdp/bat/releases/download/{{ bat_version }}/bat-{{ bat_version }}-x86_64-unknown-linux-musl.tar.gz"
+    dest: /tmp
+    remote_src: yes
+
+- name: copy bat into /usr/local/bin
+  shell: |
+    cp /tmp/bat-{{ bat_version }}-x86_64-unknown-linux-musl/bat /usr/local/bin/bat
+
+...

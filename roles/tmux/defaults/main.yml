@@ -1,0 +1,15 @@
+---
+
+apt_packages:
+  - autoconf
+  - binutils
+  - bison
+  - flex
+  - gcc
+  - git
+  - libevent-dev
+  - ncurses-dev
+
+tmux_version: 3.2a
+
+...

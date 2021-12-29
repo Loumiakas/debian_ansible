@@ -1,11 +1,16 @@
 ---
+
 - hosts: all
   roles:
-    - setup
-    - bcompare
-    - nrfsniffer
-    - rfcat
+  - vim
+  - tmux
+  - rfcat
+  - bcompare
+  - nrfsniffer
+  - setup
   vars:
     username: <username>
     password: <password>
   # user_email: <user_email>
+
+...

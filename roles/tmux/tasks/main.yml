@@ -1,0 +1,27 @@
+---
+
+- name: update apt cache
+  apt: 
+    update_cache: yes
+  
+- name: install apt packages
+  apt: 
+    name: "{{ item }}"
+    state: present 
+  loop: "{{ apt_packages }}"
+  ignore_errors: yes
+
+- name: download and extract tmux archive
+  unarchive:
+    src: "https://github.com/tmux/tmux/releases/download/{{ tmux_version }}/tmux-{{ tmux_version }}.tar.gz"
+    dest: /tmp
+    remote_src: yes
+
+- name: compile and install tmux
+  shell: |
+    cd /tmp/tmux-{{ tmux_version }}
+    ./configure
+    make
+    make install
+
+...
