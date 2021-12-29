@@ -7,7 +7,7 @@
   - rfcat
   - bcompare
   - nrfsniffer
-  - setup
+  - user_dev_profile
   vars:
     username: <username>
     password: <password>
