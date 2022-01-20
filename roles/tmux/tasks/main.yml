@@ -11,6 +11,11 @@
   loop: "{{ apt_packages }}"
   ignore_errors: yes
 
+- name: install pip packages
+  pip: 
+    name: "{{ pip_packages }}"
+    executable: pip3
+
 - name: download and extract tmux archive
   unarchive:
     src: "https://github.com/tmux/tmux/releases/download/{{ tmux_version }}/tmux-{{ tmux_version }}.tar.gz"

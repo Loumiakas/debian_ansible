@@ -2,12 +2,12 @@
 
 - hosts: all
   roles:
-  - vim
-  - tmux
-  - rfcat
-  - bcompare
-  - nrfsniffer
-  - user_dev_profile
+    - vim
+    - tmux
+    - rfcat
+    - bcompare
+    - nrfsniffer
+    - user_dev_profile
   vars:
     username: <username>
     password: <password>
