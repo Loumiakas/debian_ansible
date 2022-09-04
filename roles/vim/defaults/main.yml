@@ -15,6 +15,7 @@ apt_packages:
   - python3-gi 
   - python3-pip
   - ripgrep
+  - openssh-server
   - universal-ctags
   - x11-apps
   - x11-common
