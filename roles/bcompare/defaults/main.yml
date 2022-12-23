@@ -1,6 +1,7 @@
 ---
 
 apt_packages:
+  - shared-mime-info
   - wget
 
 bcompare_base_url: https://www.scootersoftware.com

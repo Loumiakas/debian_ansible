@@ -11,9 +11,11 @@ apt_packages:
   - git
   - gnuradio
   - gobject-introspection
+  - gpg
   - gr-osmosdr
   - hackrf
   - inspectrum
+  - scdaemon
   - ubertooth
   - universal-ctags
   - unzip
