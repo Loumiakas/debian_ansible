@@ -10,18 +10,17 @@
     state: present 
   loop: "{{ apt_packages }}"
   ignore_errors: yes
+    
+- name: install pip packages
+  pip: 
+    name: "{{ item }}"
+    state: present 
+  loop: "{{ pip_packages }}"
+  ignore_errors: yes
 
 - name: create nrf sniffer directory
   file:
     path: /opt/nrf
-    state: directory
-    mode: '0655'
-    owner: root
-    group: root
-
-- name: create nrf sniffer installer directory
-  file:
-    path: /opt/nrf-deb
     state: directory
     mode: '0655'
     owner: root
@@ -33,17 +32,9 @@
     dest: /opt/nrf
     remote_src: yes
 
-- name: download and extract nrf.zip into /opt/nrf-deb
-  unarchive:
-    src: "{{ nrf_cmd_line_tools_link }}"
-    dest: /opt/nrf-deb
-    remote_src: yes
-
-- name: install nrf-command-line-tools
-  apt: deb="/opt/nrf-deb/{{ nrf_cmd_line_tools_deb }}"
-
-- name: install JLink
-  apt: deb="/opt/nrf-deb/{{ nrf_jlink_deb }}"
+- name: install nrf command line tools
+  apt:
+    deb: "{{ nrf_cmd_line_tools_link }}"
 
 - name: copy wireshark configuration files
   shell: |
