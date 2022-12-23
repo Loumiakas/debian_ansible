@@ -1,0 +1,27 @@
+---
+
+- name: update apt cache
+  apt: 
+    update_cache: yes
+  
+- name: install apt packages
+  apt: 
+    name: "{{ item }}"
+    state: present 
+  loop: "{{ apt_packages }}"
+  ignore_errors: yes
+
+- name: install arduino-cli
+  shell: |
+    curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
+    warn: false
+  ignore_errors: yes
+
+- name: initialize configuration
+  shell: |
+    arduino-cli config init
+    warn: false
+  ignore_errors: yes
+  become_user: "{{ username }}"
+
+...
