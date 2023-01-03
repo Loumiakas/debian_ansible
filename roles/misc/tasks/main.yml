@@ -17,9 +17,4 @@
     insertafter: '#*ControllerMode*'
     line: 'ControllerMode = bredr'
 
-- name: install arduino-cli
-  shell: |
-    curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
-    warn: false
-  ignore_errors: yes
 ...

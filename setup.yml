@@ -8,6 +8,8 @@
     - bcompare
     - nrfsniffer
     - user_dev_profile
+    - arduino
+    - misc
   vars:
     username: <username>
     password: <password>

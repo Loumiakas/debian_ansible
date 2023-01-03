@@ -1,7 +1,17 @@
 ---
 
 apt_packages:
-  - vlc
+  - adb
+  - gstreamer1.0-libav              
+  - gstreamer1.0-plugins-ugly       
+  - gstreamer1.0-vaapi
+  - keepassxc
+  - libavcodec-extra 
   - mpv
+  - syncthing
+  - thunderbird
+  - ttf-mscorefonts-installer       
+  - unrar
+  - vlc
 
 ...
