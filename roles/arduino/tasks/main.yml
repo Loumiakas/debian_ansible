@@ -24,4 +24,11 @@
   ignore_errors: yes
   become_user: "{{ username }}"
 
+- name: template configuration file
+  template:
+    src: arduino-cli.yaml.j2
+    dest: "/home/{{ username }}/.arduino15/arduino-cli.yaml"
+    backup: yes
+    mode: '0600'
+  become_user: "{{ username }}"
 ...
