@@ -1,0 +1,25 @@
+---
+
+apt_packages:
+  - bluez
+  - bluez-cups
+  - bluez-firmware
+  - bluez-hcidump
+  - bluez-meshd
+  - bluez-obexd
+  - bluez-source
+  - bluez-test-scripts
+  - bluez-test-tools
+  - bluez-tools
+  - build-essential
+  - devscripts
+  - libspa-0.2-bluetooth
+  - ofono
+  - pipewire
+  - pipewire-audio-client-libraries
+  - qtbase5-dev
+  - qtdeclarative5-dev
+  - shared-mime-info
+  - software-properties-common
+
+...

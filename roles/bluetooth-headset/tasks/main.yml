@@ -1,0 +1,72 @@
+---
+
+- name: update apt cache
+  apt: 
+    update_cache: yes
+
+- name: install apt packages
+  apt: 
+    name: "{{ item }}"
+    state: present 
+  loop: "{{ apt_packages }}"
+  ignore_errors: yes
+
+- name: create with-pulseaudio file
+  file:
+    path: /etc/pipewire/media-session.d/with-pulseaudio
+    state: touch
+
+- name: disable pulse-audio services
+  shell: |
+    systemctl --user daemon-reload
+    systemctl --user --now disable pulseaudio.service pulseaudio.socket
+    systemctl --user --now enable pipewire pipewire-pulse
+    systemctl --user mask pulseaudio
+  become: yes
+  become_user: "{{ username }}"
+
+- name: update ofono bus configuration
+  blockinfile:
+    path: /etc/dbus-1/system.d/ofono.conf
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    insertbefore: "</busconfig>"
+    block: |
+      <policy user="pulse">
+        <allow send_destination="org.ofono"/>
+      </policy>
+
+- name: import signing key
+  shell: |
+   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B59D5F1597A504B7E2306DCA0620BBCF03683F77
+
+- name: copy apt sources list 
+  copy:
+    src: smoser-ubuntu-bluetooth-focal.list
+    dest: /etc/apt/sources.list.d/smoser-ubuntu-bluetooth-focal.list
+    mode: '0644'
+
+- name: install ofono-server
+  shell: |
+    mkdir -p "/home/{{ username }}/ppa/pkg-ofono-phonesim"
+    cd "/home/{{ username }}/ppa/pkg-ofono-phonesim"
+    apt source -y focal --build ofono-phonesim
+    dpkg -i ofono-phonesim_1.21-16-gadf231a8-0smoser0_amd64.deb
+
+- name: copy phonesim configuration file
+  copy:
+    src: phonesim.conf
+    dest: /etc/ofono/phonesim.conf
+    mode: '0644'
+
+- name: clone ofono repository
+  git:
+    repo: git://git.kernel.org/pub/scm/network/ofono/ofono.git
+    dest: /opt/ofono
+
+- name: copy ofono service file
+  copy:
+    src: files/ofono-phonesim.service
+    dest: /etc/systemd/system/ofono-phonesim.service
+    mode: '0644'
+
+...
