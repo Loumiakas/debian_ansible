@@ -10,6 +10,7 @@
     - user_dev_profile
     - arduino
     - misc
+    - bluetooth-headset
   vars:
     username: <username>
     password: <password>
