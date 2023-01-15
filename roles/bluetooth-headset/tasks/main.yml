@@ -1,5 +1,15 @@
 ---
 
+- name: import signing key
+  shell: |
+   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B59D5F1597A504B7E2306DCA0620BBCF03683F77
+
+- name: copy apt sources list 
+  copy:
+    src: smoser-ubuntu-bluetooth-focal.list
+    dest: /etc/apt/sources.list.d/smoser-ubuntu-bluetooth-focal.list
+    mode: '0644'
+
 - name: update apt cache
   apt: 
     update_cache: yes
@@ -15,6 +25,10 @@
   file:
     path: /etc/pipewire/media-session.d/with-pulseaudio
     state: touch
+
+- name: create pipewire-audio services
+  shell: |
+    cp /usr/share/doc/pipewire/examples/systemd/user/pipewire-pulse.* /etc/systemd/user/
 
 - name: disable pulse-audio services
   shell: |
@@ -35,21 +49,11 @@
         <allow send_destination="org.ofono"/>
       </policy>
 
-- name: import signing key
-  shell: |
-   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B59D5F1597A504B7E2306DCA0620BBCF03683F77
-
-- name: copy apt sources list 
-  copy:
-    src: smoser-ubuntu-bluetooth-focal.list
-    dest: /etc/apt/sources.list.d/smoser-ubuntu-bluetooth-focal.list
-    mode: '0644'
-
 - name: install ofono-server
   shell: |
     mkdir -p "/home/{{ username }}/ppa/pkg-ofono-phonesim"
     cd "/home/{{ username }}/ppa/pkg-ofono-phonesim"
-    apt source -y focal --build ofono-phonesim
+    apt source -t focal --build ofono-phonesim
     dpkg -i ofono-phonesim_1.21-16-gadf231a8-0smoser0_amd64.deb
 
 - name: copy phonesim configuration file
