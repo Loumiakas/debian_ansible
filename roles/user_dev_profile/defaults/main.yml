@@ -13,6 +13,7 @@ apt_packages:
   - gobject-introspection
   - gpg
   - gr-osmosdr
+  - gqrx-sdr
   - hackrf
   - inspectrum
   - scdaemon
